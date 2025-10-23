@@ -4,11 +4,6 @@ from typing import Any
 from pydantic import BaseModel
 
 
-
-def convert_datetime_to_iso_8601_with_z_suffix(dt: datetime) -> str:
-    return dt.strftime('%Y-%m-%dT%H:%M:%SZ')
-
-
 class EmailMetadata(BaseModel):
     """Email metadata"""
 
@@ -32,8 +27,7 @@ class EmailMetadata(BaseModel):
 
     class Config:
         json_encoders = {
-            # custom output conversion for datetime
-            datetime: convert_datetime_to_iso_8601_with_z_suffix
+            datetime: lambda dt: dt.strftime('%Y-%m-%dT%H:%M:%SZ')
         }
 
 
